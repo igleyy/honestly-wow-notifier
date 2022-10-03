@@ -69,7 +69,7 @@ if __name__ == '__main__':
                         action=argparse.BooleanOptionalAction)
     parser.add_argument('--discord-notification',
                         help='notification type - sends a notification to Discord channel and server specified by the '
-                             'webhook',
+                             'webhook (https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks)',
                         action=argparse.BooleanOptionalAction)
 
     parser.add_argument('--discord-webhook',
