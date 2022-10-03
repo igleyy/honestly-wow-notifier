@@ -24,11 +24,16 @@ def send_dummy_notification(message):
     print(message)
 
 
-def send_discord_notification(message):
+def send_discord_notification(message, webhook):
     print(message)
 
-    webhook = SyncWebhook.from_url('https://discord.com/api/webhooks/1026520108882993182/xv2wxOqGJ7qpu7OifdCn5m8sGBiJ-HlnCk-pSnzSuujiK1EcgQ1sk_NPLdOC9qOrNCPO')
+    webhook = SyncWebhook.from_url(webhook)
     webhook.send(message)
+
+
+def exit_and_wait_for_keypress():
+    input("Press Enter to continue...")
+    sys.exit(1)
 
 
 def main():
@@ -45,7 +50,7 @@ def main():
         if args.notify_on_login_screen and is_login_screen():
             notification_function('Login screen detected!')
         elif args.notify_on_character_selection_screen and is_character_selection_screen():
-            notification_function('Character selection screen detected!')
+            notification_function('Character selection screen detected!', args.discord_webhook)
         else:
             print('Login nor character selection screen detected (which is assumed to be fine...)')
 
@@ -80,16 +85,16 @@ if __name__ == '__main__':
 
     if not args.notify_on_login_screen and not args.notify_on_character_selection_screen:
         print('You need to select at least one type notification trigger')
-        sys.exit(1)
+        exit_and_wait_for_keypress()
 
     if not args.dummy_notification and not args.discord_notification:
         print('You need to select a notification type')
-        sys.exit(1)
+        exit_and_wait_for_keypress()
 
     if args.discord_notification and not args.discord_webhook:
         print('You need to provide Discord webhook address '
               '(https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks) in order to send Discord '
               'notification')
-        sys.exit(1)
+        exit_and_wait_for_keypress()
 
     main()
