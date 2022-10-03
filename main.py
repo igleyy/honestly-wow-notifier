@@ -67,7 +67,8 @@ if __name__ == '__main__':
                         help='notification type - dummy notification type used for testing',
                         action=argparse.BooleanOptionalAction)
     parser.add_argument('--discord-notification',
-                        help='notification type - notification performed over MyNotifier',
+                        help='notification type - sends a notification to Discord channel and server specified by the '
+                             'webhook',
                         action=argparse.BooleanOptionalAction)
 
     parser.add_argument('--discord-webhook',
