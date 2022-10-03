@@ -24,10 +24,10 @@ def send_dummy_notification(message):
     print(message)
 
 
-def send_discord_notification(message, webhook):
+def send_discord_notification(message):
     print(message)
 
-    webhook = SyncWebhook.from_url(webhook)
+    webhook = SyncWebhook.from_url(args.discord_webhook)
     webhook.send(message)
 
 
@@ -50,7 +50,7 @@ def main():
         if args.notify_on_login_screen and is_login_screen():
             notification_function('Login screen detected!')
         elif args.notify_on_character_selection_screen and is_character_selection_screen():
-            notification_function('Character selection screen detected!', args.discord_webhook)
+            notification_function('Character selection screen detected!')
         else:
             print('Login nor character selection screen detected (which is assumed to be fine...)')
 
