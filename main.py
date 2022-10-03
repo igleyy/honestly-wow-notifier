@@ -39,6 +39,7 @@ def main():
 
     print(f'Starting watching for main login screen with notification function: {notification_function.__name__} with '
           f'interval {args.interval}s...')
+    print(f'Please remember that WoW client window must be visible at all times!')
 
     while True:
         if args.notify_on_login_screen and is_login_screen():
