@@ -7,16 +7,16 @@ import time
 
 
 def is_login_screen():
-    pos = imagesearch('./login-screen.png')
+    pos = imagesearch(f'./samples/login-screen-{args.resolution}.png')
     return pos[0] != -1
 
 
 def is_character_selection_screen():
-    pos = imagesearch('./character-selection-screen-wotelko.png')
+    pos = imagesearch(f'./samples/character-selection-screen-wotelko-{args.resolution}.png')
     if pos[0] != -1:
         return True
 
-    pos = imagesearch('./character-selection-screen-classic.png')
+    pos = imagesearch(f'./samples/character-selection-screen-classic-{args.resolution}.png')
     return pos[0] != -1
 
 
@@ -42,15 +42,15 @@ def main():
     elif args.discord_notification:
         notification_function = send_discord_notification
 
-    print(f'Starting watching for main login screen with notification function: {notification_function.__name__} with '
-          f'interval {args.interval}s...')
-    print(f'Please remember that WoW client window must be visible at all times!')
+    print(f'Notification function: {notification_function.__name__}. Check interval: interval {args.interval}s. '
+          f'Current resolution is {args.resolution}. Please remember that WoW client window must be visible at all '
+          f'times!\n')
 
     if args.notify_on_login_screen:
-        print('The script will watch for login screen...')
+        print('The script will watch for login screen.')
 
     if args.notify_on_character_selection_screen:
-        print('This script will watch for character selection screen...')
+        print('The script will watch for character selection screen.')
 
     while True:
         if is_login_screen() or is_character_selection_screen():
@@ -64,8 +64,8 @@ def main():
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='After you launch the script make sure to have WoW client fully visible on your main screen. '
-                    'In order for detection to work your1 WoW client must be in Windowed display mode and resolution '
-                    'must be 2560x1440.'
+                    'In order for detection to work your WoW client must be in Windowed display mode and resolution '
+                    'must be 2560x1440 or you provide samples using your own resolution in samples/ directory.'
     )
 
     parser.add_argument('-l',
@@ -87,6 +87,12 @@ if __name__ == '__main__':
 
     parser.add_argument('--discord-webhook',
                         help='Address of your server\'s webhook')
+
+    parser.add_argument('-r',
+                        '--resolution',
+                        help='Resolution of your WoW client window in following format e.g. 2560x1440',
+                        default='2560x1440'
+                        )
 
     parser.add_argument('--interval', type=int, default=15, required=False)
     args = parser.parse_args()
