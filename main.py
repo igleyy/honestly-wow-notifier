@@ -46,26 +46,34 @@ def main():
           f'interval {args.interval}s...')
     print(f'Please remember that WoW client window must be visible at all times!')
 
+    if args.notify_on_login_screen:
+        print('The script will watch for login screen...')
+
+    if args.notify_on_character_selection_screen:
+        print('This script will watch for character selection screen...')
+
     while True:
-        if args.notify_on_login_screen and is_login_screen():
-            notification_function('Login screen detected!')
-        elif args.notify_on_character_selection_screen and is_character_selection_screen():
-            notification_function('Character selection screen detected!')
+        if is_login_screen() or is_character_selection_screen():
+            notification_function('You better go check your WoW client!')
         else:
-            print('Login nor character selection screen detected (which is assumed to be fine...)')
+            print('.')
 
         time.sleep(args.interval)
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
-        description='After you launch the script make sure to have WoW client fully visible on your main screen.'
+        description='After you launch the script make sure to have WoW client fully visible on your main screen. '
+                    'In order for detection to work your1 WoW client must be in Windowed display mode and resolution '
+                    'must be 2560x1440.'
     )
 
-    parser.add_argument('--notify-on-login-screen',
+    parser.add_argument('-l',
+                        '--notify-on-login-screen',
                         help='notification trigger - send notification when login screen is detected',
                         action=argparse.BooleanOptionalAction)
-    parser.add_argument('--notify-on-character-selection-screen',
+    parser.add_argument('-c',
+                        '--notify-on-character-selection-screen',
                         help='notification trigger - send notification when character selection screen is detected',
                         action=argparse.BooleanOptionalAction)
 
