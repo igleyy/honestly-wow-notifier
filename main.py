@@ -53,7 +53,9 @@ def main():
         print('The script will watch for character selection screen.')
 
     while True:
-        if is_login_screen() or is_character_selection_screen():
+        if args.notify_on_login_screen and is_login_screen():
+            notification_function('You better go check your WoW client!')
+        elif args.notify_on_character_selection_screen and is_character_selection_screen():
             notification_function('You better go check your WoW client!')
         else:
             print('.')
